@@ -13,21 +13,20 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int key= e.getKeyChar();
-
+        char key= Character.toLowerCase(e.getKeyChar());
         System.out.println("Key pressed: " + key);
 
         switch (key) {
-            case KeyEvent.VK_W:
+            case 'w':
                 upPressed = true;
                 break;
-            case KeyEvent.VK_S:
+            case 's':
                 downPressed = true;
                 break;
-            case KeyEvent.VK_A:
+            case 'a':
                 leftPressed = true;
                 break;
-            case KeyEvent.VK_D:
+            case 'd':
                 rightPressed = true;
                 break;
         }
@@ -36,20 +35,20 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        int key= e.getKeyChar();
+        char key= Character.toLowerCase(e.getKeyChar());
         System.out.println("Key released: " + key);
 
         switch (key) {
-            case KeyEvent.VK_W:
+            case 'w':
                 upPressed = false;
                 break;
-            case KeyEvent.VK_S:
+            case 's':
                 downPressed = false;
                 break;
-            case KeyEvent.VK_A:
+            case 'a':
                 leftPressed = false;
                 break;
-            case KeyEvent.VK_D:
+            case 'd':
                 rightPressed = false;
                 break;
         }
