@@ -18,9 +18,9 @@ public class TileManager {
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         tiles = new Tile[10];
-        mapTileNum = new int[16][16];
+        mapTileNum = new int[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
         getTileImage();
-        loadMap();
+        loadMap("/maps/world.txt");
     }
 
     public void getTileImage() {
@@ -34,8 +34,15 @@ public class TileManager {
             tiles[Tiles.ROAD.getValue()] = new Tile();
             tiles[Tiles.ROAD.getValue()].image = ImageIO.read(getClass().getResource("/tiles/tile_road.png"));
 
-            tiles[Tiles.WALL.getValue()] = new Tile();
+            tiles[Tiles.WALL.getValue()] = new Tile(true);
             tiles[Tiles.WALL.getValue()].image = ImageIO.read(getClass().getResource("/tiles/tile_wall.png"));
+
+            tiles[Tiles.TREE.getValue()] = new Tile(true);
+            tiles[Tiles.TREE.getValue()].image=ImageIO.read(getClass().getResource("/tiles/tile_tree.png"));
+
+            tiles[Tiles.SAND.getValue()]=new Tile();
+            tiles[Tiles.SAND.getValue()].image=ImageIO.read(getClass().getResource("/tiles/tile_sand.png"));
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,18 +73,18 @@ public class TileManager {
     }
 
 
-    public void loadMap() {
+    public void loadMap(String file) {
         try {
-            InputStream is = getClass().getResourceAsStream("/maps/map1_castle.txt");
+            InputStream is = getClass().getResourceAsStream(file);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int row = 0;
 
-            while (row < gamePanel.maxScreenRow) {
+            while (row < gamePanel.maxWorldCol) {
                 String line = br.readLine();
                 if (line != null) {
                     String[] numbers = line.split("\\s+"); // Handle any whitespace
-                    for (int col = 0; col < gamePanel.maxScreenCol; col++) {
+                    for (int col = 0; col < gamePanel.maxWorldCol; col++) {
                         if (col < numbers.length) {
                             // Fill mapTileNum[row][col] with the parsed number
                             mapTileNum[row][col] = Integer.parseInt(numbers[col]);
@@ -88,7 +95,7 @@ public class TileManager {
                     }
                 } else {
                     // If no line exists, fill the entire row with default value
-                    for (int col = 0; col < gamePanel.maxScreenCol; col++) {
+                    for (int col = 0; col < gamePanel.maxWorldCol; col++) {
                         mapTileNum[row][col] = 0;
                     }
                 }

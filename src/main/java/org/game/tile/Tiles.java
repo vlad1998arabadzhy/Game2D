@@ -8,9 +8,12 @@ public enum Tiles {
     SNOW(0),
     GRASS(1),
     ROAD(2),
-    WALL(3);
+    WALL(3),
+    TREE(4),
+    SAND(5);
 
     private final int value;
+
     Tiles(int value) {
         this.value = value;
     }

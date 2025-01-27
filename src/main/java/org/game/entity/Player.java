@@ -2,6 +2,7 @@ package org.game.entity;
 
 import org.game.GamePanel;
 import org.game.KeyHandler;
+import org.game.tile.Tile;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,17 +13,26 @@ public class Player extends Entity {
 
     GamePanel gamePanel;
     KeyHandler keyH;
+    Tile currentTile;
+
+    public final int screenX;
+    public final int screenY;
 
     public Player(GamePanel gamePanel, KeyHandler keyH) {
         this.gamePanel = gamePanel;
         this.keyH = keyH;
+
+        screenX = gamePanel.ScreenWidth/2-gamePanel.TILE_SIZE/2;
+        screenY = gamePanel.ScreenHeight/2-gamePanel.TILE_SIZE/2;
+
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
-        x = 100;
-        y = 100;
+        worldX = gamePanel.TILE_SIZE *23;
+        worldY = gamePanel.TILE_SIZE *23;
+
         speed = 4;
         direction = "down";
 
@@ -53,20 +63,20 @@ public class Player extends Entity {
 
         if (keyH.upPressed == true) {
             direction = "up";
-            y -= speed;
+            worldY -= speed;
         }
         if (keyH.downPressed == true) {
             direction = "down";
-            y += speed;
+            worldY += speed;
         }
 
         if (keyH.leftPressed == true) {
             direction = "left";
-            x -= speed;
+            worldX -= speed;
         }
         if (keyH.rightPressed == true) {
             direction = "right";
-            x += speed;
+            worldX += speed;
         }
 
     }
@@ -75,35 +85,35 @@ public class Player extends Entity {
         BufferedImage img = null;
         switch (direction) {
             case "up":
-                if (y % 3 == 0) {
+                if (worldY % 3 == 0) {
                     img = up;
                 } else {
                     img = up2;
                 }
                 break;
             case "down":
-                if (y % 3 == 0) {
+                if (worldY % 3 == 0) {
                     img = down;
                 } else {
                     img = down2;
                 }
                 break;
             case "left":
-                if (x % 3 == 0) {
+                if (worldX % 3 == 0) {
                     img = left;
                 } else {
                     img = left2;
                 }
                 break;
             case "right":
-                if (x % 3 == 0) {
+                if (worldX % 3 == 0) {
                     img = right;
                 } else {
                     img = right2;
                 }
                 break;
         }
-        g.drawImage(img, x, y, gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
+        g.drawImage(img, screenX, screenY, gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
 
     }
 
