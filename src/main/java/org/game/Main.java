@@ -20,7 +20,7 @@ public class Main {
         window.add(gamePanel);
         SwingUtilities.invokeLater(gamePanel::requestFocusInWindow);
         window.pack();
-
+    //
        gamePanel.startGameThread();
 
 
