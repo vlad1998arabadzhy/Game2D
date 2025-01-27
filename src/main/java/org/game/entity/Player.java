@@ -23,7 +23,7 @@ public class Player extends Entity {
     public void setDefaultValues() {
         x = 100;
         y = 100;
-        speed = 5;
+        speed = 4;
         direction = "down";
 
     }
@@ -75,28 +75,28 @@ public class Player extends Entity {
         BufferedImage img = null;
         switch (direction) {
             case "up":
-                if (y % 2 == 0) {
+                if (y % 3 == 0) {
                     img = up;
                 } else {
                     img = up2;
                 }
                 break;
             case "down":
-                if (y % 2 == 0) {
+                if (y % 3 == 0) {
                     img = down;
                 } else {
                     img = down2;
                 }
                 break;
             case "left":
-                if (x % 2 == 0) {
+                if (x % 3 == 0) {
                     img = left;
                 } else {
                     img = left2;
                 }
                 break;
             case "right":
-                if (x % 2 == 0) {
+                if (x % 3 == 0) {
                     img = right;
                 } else {
                     img = right2;
