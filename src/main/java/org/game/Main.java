@@ -21,6 +21,7 @@ public class Main {
         SwingUtilities.invokeLater(gamePanel::requestFocusInWindow);
         window.pack();
     //
+        //
        gamePanel.startGameThread();
 
 
