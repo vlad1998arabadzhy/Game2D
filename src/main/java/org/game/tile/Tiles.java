@@ -1,24 +1,29 @@
 package org.game.tile;
 
-import javax.imageio.ImageIO;
-
 public enum Tiles {
 
 
-    SNOW(0),
-    GRASS(1),
-    ROAD(2),
-    WALL(3),
-    TREE(4),
-    SAND(5);
+    SNOW(0, "snow" ),
+    GRASS(1, "grass" ),
+    ROAD(2, "road" ),
+    WALL(3, "wall" ),
+    TREE(4, "tree" ),
+    SAND(5, "sand" ), ;
 
     private final int value;
+    private  final String name;
 
-    Tiles(int value) {
+    Tiles(int value, String name) {
         this.value = value;
+        this.name = name;
     }
+
     public int getValue() {
         return value;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
 

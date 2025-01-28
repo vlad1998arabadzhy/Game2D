@@ -13,28 +13,31 @@ public class Player extends Entity {
 
     GamePanel gamePanel;
     KeyHandler keyH;
-    Tile currentTile;
 
     public final int screenX;
     public final int screenY;
+
 
     public Player(GamePanel gamePanel, KeyHandler keyH) {
         this.gamePanel = gamePanel;
         this.keyH = keyH;
 
-        screenX = gamePanel.ScreenWidth/2-gamePanel.TILE_SIZE/2;
-        screenY = gamePanel.ScreenHeight/2-gamePanel.TILE_SIZE/2;
+        screenX = gamePanel.ScreenWidth / 2 - gamePanel.TILE_SIZE / 2;
+        screenY = gamePanel.ScreenHeight / 2 - gamePanel.TILE_SIZE / 2;
+
+        //Colision Rectangle;
+        solidArea = new Rectangle(8, 16, 32, 32);
 
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
-        worldX = gamePanel.TILE_SIZE *23;
-        worldY = gamePanel.TILE_SIZE *23;
+        worldX = 100;
+        worldY = 100;
 
         speed = 4;
-        direction = "down";
+        direction = Direction.DOWN;
 
     }
 
@@ -61,51 +64,69 @@ public class Player extends Entity {
 
     public void update() {
 
-        if (keyH.upPressed == true) {
-            direction = "up";
-            worldY -= speed;
-        }
-        if (keyH.downPressed == true) {
-            direction = "down";
-            worldY += speed;
-        }
+        if (keyH.upPressed) {
+            direction = Direction.UP;
 
-        if (keyH.leftPressed == true) {
-            direction = "left";
-            worldX -= speed;
+        } else if (keyH.downPressed) {
+            direction = Direction.DOWN;
+
+        } else if (keyH.leftPressed) {
+            direction = Direction.LEFT;
+
+        } else if (keyH.rightPressed) {
+            direction = Direction.RIGHT;
+
         }
-        if (keyH.rightPressed == true) {
-            direction = "right";
-            worldX += speed;
+        //CHECK COLISION
+        colision = false;
+        gamePanel.colisionHandler.checkColision(this);
+
+        if (!colision) {
+            switch (direction) {
+                case UP:
+                    if (keyH.upPressed) worldY -= speed;colision = false;
+                    break;
+                case DOWN:
+                    if (keyH.downPressed) worldY += speed;colision = false;
+                    break;
+                case LEFT:
+                    if (keyH.leftPressed) worldX -= speed;colision = false;
+                    break;
+                case RIGHT:
+                    if (keyH.rightPressed) worldX += speed;colision = false;
+                    break;
+            }
         }
 
     }
 
+
     public void render(Graphics g) {
         BufferedImage img = null;
+
         switch (direction) {
-            case "up":
+            case UP:
                 if (worldY % 3 == 0) {
                     img = up;
                 } else {
                     img = up2;
                 }
                 break;
-            case "down":
+            case DOWN:
                 if (worldY % 3 == 0) {
                     img = down;
                 } else {
                     img = down2;
                 }
                 break;
-            case "left":
+            case LEFT:
                 if (worldX % 3 == 0) {
                     img = left;
                 } else {
                     img = left2;
                 }
                 break;
-            case "right":
+            case RIGHT:
                 if (worldX % 3 == 0) {
                     img = right;
                 } else {
